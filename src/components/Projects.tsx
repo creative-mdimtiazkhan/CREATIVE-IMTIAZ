@@ -8,7 +8,7 @@ export default function Projects() {
   const projects = state.projects || [];
 
   return (
-    <section className="py-10 px-4 bg-zinc-950 text-white min-h-screen pb-24">
+    <section className="py-10 px-4 bg-zinc-950 text-white">
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4">
           <div>

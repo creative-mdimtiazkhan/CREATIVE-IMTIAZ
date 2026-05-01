@@ -40,11 +40,7 @@ export interface Project {
 
 export interface HomeCard {
   id: string;
-  title: string;
-  description: string;
   imageUrl: string;
-  buttonText: string;
-  buttonLink: string;
 }
 
 export interface AppState {

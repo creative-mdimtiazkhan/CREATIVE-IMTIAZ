@@ -1,8 +1,8 @@
 import Profile from '../components/Profile';
 import About from '../components/About';
 import Skills from '../components/Skills';
-import HomeCards from '../components/HomeCards';
 import Contact from '../components/Contact';
+import HomeCards from '../components/HomeCards';
 import FloatingWhatsApp from '../components/FloatingWhatsApp';
 
 export default function Home() {
@@ -11,8 +11,8 @@ export default function Home() {
       <Profile />
       <About />
       <Skills />
-      <HomeCards />
       <Contact />
+      <HomeCards />
       <FloatingWhatsApp />
     </div>
   );

@@ -1,7 +1,5 @@
 import { motion } from 'motion/react';
 import { useAppContext } from '../context/AppContext';
-import { ExternalLink } from 'lucide-react';
-import { Link } from 'react-router-dom';
 
 export default function HomeCards() {
   const { state } = useAppContext();
@@ -10,64 +8,33 @@ export default function HomeCards() {
   if (cards.length === 0) return null;
 
   return (
-    <section className="py-20 px-4 bg-zinc-950">
+    <section id="card-section" className="mt-10 py-10 px-4 bg-zinc-950">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16 space-y-4">
-          <h2 className="text-4xl font-black text-white">Featured Services</h2>
-          <p className="text-zinc-500 max-w-xl mx-auto">Explore some of the core features and specialized services I offer to help your business grow.</p>
+        <div className="text-center mb-10 space-y-2">
+          <h2 className="text-3xl font-bold text-[#00aaff]">Featured Cards</h2>
+          <p className="text-zinc-500 text-sm">Highlights of our works and featured items</p>
         </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 place-items-center">
           {cards.map((card, index) => (
             <motion.div
               key={card.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="bg-zinc-900 overflow-hidden rounded-3xl border border-zinc-800 hover:border-[#00aaff]/50 transition-all group flex flex-col shadow-2xl"
+              viewport={{ once: true, margin: "-50px" }}
+              className="w-full max-w-[350px] aspect-[300/180] overflow-hidden rounded-[10px] bg-zinc-900 border border-zinc-800 shadow-xl group"
             >
-              <div className="aspect-[300/180] relative overflow-hidden bg-zinc-800">
-                {card.imageUrl ? (
-                  <img src={card.imageUrl} alt={card.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center text-zinc-700">
-                    <ExternalLink size={48} />
-                  </div>
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
-              </div>
-              
-              <div className="p-6 flex flex-col flex-grow">
-                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-[#00aaff] transition-colors">{card.title}</h3>
-                <p className="text-zinc-400 text-sm leading-relaxed mb-6 flex-grow line-clamp-3">
-                  {card.description}
-                </p>
-
-                {card.buttonText && (
-                  <div className="mt-auto">
-                    {card.buttonLink?.startsWith('http') ? (
-                      <a 
-                        href={card.buttonLink} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-[#00aaff] text-xs font-black uppercase tracking-widest hover:underline"
-                      >
-                        {card.buttonText}
-                        <ExternalLink size={14} />
-                      </a>
-                    ) : (
-                      <Link 
-                        to={card.buttonLink || '#'} 
-                        className="inline-flex items-center gap-2 text-[#00aaff] text-xs font-black uppercase tracking-widest hover:underline"
-                      >
-                        {card.buttonText}
-                        <ExternalLink size={14} />
-                      </Link>
-                    )}
-                  </div>
-                )}
-              </div>
+              {card.imageUrl ? (
+                <img 
+                  src={card.imageUrl} 
+                  alt="Feature Preview" 
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+                />
+              ) : (
+                <div className="w-full h-full bg-zinc-800 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-full border-2 border-zinc-700 opacity-50" />
+                </div>
+              )}
             </motion.div>
           ))}
         </div>
