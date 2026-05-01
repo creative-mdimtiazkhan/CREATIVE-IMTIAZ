@@ -1,0 +1,83 @@
+import { motion } from 'motion/react';
+import { useAppContext } from '../context/AppContext';
+import { Link } from 'react-router-dom';
+import { Tag, Briefcase } from 'lucide-react';
+
+export default function Projects() {
+  const { state } = useAppContext();
+  const projects = state.projects || [];
+
+  return (
+    <section className="py-10 px-4 bg-zinc-950 text-white min-h-screen pb-24">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4">
+          <div>
+            <h2 className="text-3xl font-bold text-[#00aaff]">My Projects</h2>
+            <p className="text-zinc-500 text-sm mt-1">Discover my latest digital works</p>
+          </div>
+          <div className="bg-[#111] px-4 py-2 rounded-xl border border-[#222] flex items-center gap-3">
+             <Briefcase size={16} className="text-blue-500" />
+             <span className="text-sm font-bold">{projects.length} Showcases</span>
+          </div>
+        </div>
+
+        {projects.length === 0 ? (
+          <div className="py-24 bg-zinc-900/30 border-2 border-dashed border-zinc-800 rounded-3xl text-center">
+            <Briefcase size={48} className="text-zinc-700 mx-auto mb-4" />
+            <p className="text-zinc-500 italic">No projects added yet. Check back soon!</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {projects.map((project, index) => (
+              <motion.div
+                key={project.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 hover:border-[#00aaff]/50 transition-all shadow-2xl flex flex-col group"
+              >
+                <div className="aspect-video bg-zinc-800 shrink-0 relative overflow-hidden">
+                  {project.images && project.images.length > 0 ? (
+                    <img 
+                      src={project.images[0].desktop || project.images[0].mobile} 
+                      alt={project.name} 
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-zinc-700">No Image Preview</div>
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                  <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md text-white text-[10px] font-bold px-3 py-1.5 rounded-full border border-white/10">
+                     DYNAMIK
+                  </div>
+                </div>
+                
+                <div className="p-6 flex flex-col flex-grow">
+                  <h3 className="text-xl font-bold mb-2 group-hover:text-[#00aaff] transition-colors">{project.name}</h3>
+                  <p className="text-zinc-400 mb-6 text-sm flex-grow line-clamp-3">
+                    {project.description}
+                  </p>
+                  
+                  <div className="flex items-center justify-between mt-auto pt-6 border-t border-zinc-800">
+                    <div className="flex flex-col">
+                       {project.regularPrice && <span className="text-zinc-500 text-[10px] line-through uppercase font-black">{project.regularPrice}</span>}
+                       <span className="text-[#00aaff] font-black text-xl leading-none">{project.discountPrice || 'TBA'}</span>
+                    </div>
+                    <Link 
+                      to={`/project/${project.id}`} 
+                      className="flex items-center gap-2 bg-[#00aaff] hover:bg-[#0088cc] text-white px-5 py-2.5 rounded-xl text-sm font-bold transition shadow-lg shadow-blue-500/20"
+                    >
+                      <Tag size={16} />
+                      <span>View</span>
+                    </Link>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
