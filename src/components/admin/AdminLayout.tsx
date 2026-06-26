@@ -1,8 +1,9 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { useAppContext } from '../../context/AppContext';
-import { LayoutDashboard, UserCircle, FileText, Phone, Link as LinkIcon, LogOut, Menu, X, MessageSquareText, Settings, Briefcase, CreditCard } from 'lucide-react';
+import { LayoutDashboard, UserCircle, FileText, Phone, Link as LinkIcon, LogOut, Menu, X, MessageSquareText, Settings, Briefcase, CreditCard, Sparkles, ShoppingBag } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { supabase } from '../../lib/supabase';
 
 export default function AdminLayout() {
   const { state, loginState } = useAppContext();
@@ -11,24 +12,37 @@ export default function AdminLayout() {
   const navigate = useNavigate();
 
   if (!state.isAdmin) {
-    return <Navigate to="/admin/login" replace />;
+    return <Navigate to="/" replace />;
   }
 
   const navItems = [
     { path: '/admin/profile', label: 'Profile', icon: UserCircle },
     { path: '/admin/about', label: 'About Me', icon: FileText },
+    { path: '/admin/featured-projects', label: 'Products', icon: Sparkles },
+    { path: '/admin/orders', label: 'Manage Orders', icon: ShoppingBag },
     { path: '/admin/cards', label: 'Card Manager', icon: CreditCard },
     { path: '/admin/skills', label: 'My Skills', icon: Settings },
-    { path: '/admin/projects', label: 'Project Management', icon: Briefcase },
     { path: '/admin/contact', label: 'Contact Us', icon: Phone },
     { path: '/admin/socials', label: 'Social Links', icon: LinkIcon },
     { path: '/admin/reports', label: 'Client Report', icon: MessageSquareText },
   ];
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    try {
+      await supabase.auth.signOut();
+    } catch (e) {
+      console.warn("Supabase auth signout error:", e);
+    }
+
+    localStorage.clear();
+    sessionStorage.clear();
+
     loginState(false);
-    navigate('/admin/login');
+    navigate('/', { replace: true });
   };
+
+  const currentItem = navItems.find(item => location.pathname.startsWith(item.path));
+  const pageHeaderLabel = currentItem ? currentItem.label : 'Dashboard';
 
   return (
     <div className="min-h-screen bg-black text-white flex">
@@ -71,14 +85,14 @@ export default function AdminLayout() {
           </Link>
         </div>
       </aside>
-
+ 
       {/* Main Content */}
       <div className="flex-1 flex flex-col min-w-0">
         <header className="bg-[#111] border-b border-[#222] py-4 px-6 flex items-center md:hidden">
           <button onClick={() => setSidebarOpen(true)} className="text-gray-400 hover:text-white">
             <Menu size={24} />
           </button>
-          <span className="ml-4 font-bold text-lg">Dashboard</span>
+          <span className="ml-4 font-bold text-lg">{pageHeaderLabel}</span>
         </header>
 
         <main className="p-6 md:p-10 overflow-y-auto w-full">

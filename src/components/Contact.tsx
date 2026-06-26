@@ -3,7 +3,7 @@ import { useAppContext } from '../context/AppContext';
 import { Mail, Phone, MessageCircle, Facebook, Youtube, Instagram, Twitter, Linkedin, Github, Globe } from 'lucide-react';
 
 export default function Contact() {
-  const { state } = useAppContext();
+  const { state, t } = useAppContext();
   const { contact } = state;
   const socialLinks = state.socialLinks || [];
 
@@ -21,10 +21,10 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-10 px-4 text-white mb-5 max-w-2xl mx-auto">
-      <h2 className="text-2xl font-bold mb-3 text-[#00aaff]">Contact Us</h2>
+    <section id="contact" className="py-10 px-4 text-theme-text mb-5 max-w-2xl mx-auto">
+      <h2 className="text-2xl font-bold mb-3 text-[#00aaff]">{t('contact_us')}</h2>
 
-      <div className="bg-[#111] border border-zinc-800 p-6 rounded-2xl shadow-lg">
+      <div className="bg-theme-card border border-theme-border p-6 rounded-2xl shadow-lg">
         <div className="flex flex-col gap-3">
           {contact.gmail && (
             <a 
@@ -33,7 +33,7 @@ export default function Contact() {
               style={{ backgroundColor: '#2196f3' }}
             >
               <Mail size={20} />
-              <span>Email Us</span>
+              <span>{t('email_us')}</span>
             </a>
           )}
 
@@ -44,7 +44,7 @@ export default function Contact() {
               style={{ backgroundColor: '#ff9800' }}
             >
               <Phone size={20} />
-              <span>Call Now</span>
+              <span>{t('call_now')}</span>
             </a>
           )}
 
@@ -57,14 +57,14 @@ export default function Contact() {
               style={{ backgroundColor: '#25D366' }}
             >
               <MessageCircle size={20} />
-              <span>Chat on WhatsApp</span>
+              <span>{t('chat_whatsapp')}</span>
             </a>
           )}
         </div>
 
         {socialLinks.length > 0 && (
-          <div className="mt-8 pt-6 border-t border-zinc-800">
-            <h3 className="text-lg font-bold mb-4 text-zinc-400">Social Links</h3>
+          <div className="mt-8 pt-6 border-t border-theme-border animate-in fade-in">
+            <h3 className="text-lg font-bold mb-4 text-theme-muted">{t('social_links')}</h3>
             <div className="flex flex-col gap-3">
               {socialLinks.map((link) => (
                 <a 
@@ -72,7 +72,7 @@ export default function Contact() {
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 bg-[#1e1e1e] hover:bg-[#2a2a2a] transition text-white p-3 rounded-lg no-underline font-medium"
+                  className="flex items-center gap-3 bg-neutral-100 dark:bg-[#1e1e1e] hover:bg-neutral-200 dark:hover:bg-[#2a2a2a] transition text-theme-text p-3 rounded-lg no-underline font-medium border border-theme-border"
                 >
                   {getSocialIcon(link.platform)}
                   <span>{link.platform}</span>

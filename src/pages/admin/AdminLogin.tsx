@@ -12,7 +12,9 @@ export default function AdminLogin() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (email === 'creative.mdimtiazkhan@gmail.com' && password === '896388') {
+    if (email === 'mdimtiazkhan060@gmail.com' && password === '8963885522') {
+      localStorage.setItem('adminToken', 'true');
+      sessionStorage.setItem('adminToken', 'true');
       loginState(true);
       navigate('/admin/profile');
     } else {

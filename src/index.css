@@ -1,8 +1,43 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 
+:root {
+  --theme-bg: #000000;
+  --theme-card: #111111;
+  --theme-text: #FFFFFF;
+  --theme-border: #27272a; /* zinc-800 equivalence */
+  --theme-text-muted: #a1a1aa; /* zinc-400 */
+}
+
+:root.light {
+  --theme-bg: #FFFFFF;
+  --theme-card: #F8F9FA;
+  --theme-text: #111111;
+  --theme-border: #E5E7EB;
+  --theme-text-muted: #52525b; /* zinc-600 */
+}
+
+body {
+  background-color: var(--theme-bg);
+  color: var(--theme-text);
+  transition: background-color 300ms ease, color 300ms ease;
+}
+
+/* Smooth transitions for theme switching */
+header, nav, section, div, button, input, textarea, select, span, a, h1, h2, h3, h4, h5, h6, p, svg {
+  transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1), 
+              border-color 300ms cubic-bezier(0.4, 0, 0.2, 1), 
+              color 300ms cubic-bezier(0.4, 0, 0.2, 1),
+              text-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --color-theme-bg: var(--theme-bg);
+  --color-theme-card: var(--theme-card);
+  --color-theme-text: var(--theme-text);
+  --color-theme-border: var(--theme-border);
+  --color-theme-muted: var(--theme-text-muted);
 }
 

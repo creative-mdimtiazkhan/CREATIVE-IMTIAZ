@@ -19,7 +19,7 @@ export default function Login() {
       return;
     }
 
-    if (email === 'creative.mdimtiazkhan@gmail.com' && password === '896388') {
+    if (email === 'mdimtiazkhan060@gmail.com' && password === '8963885522') {
       loginState(true);
       navigate('/admin/profile');
     } else {

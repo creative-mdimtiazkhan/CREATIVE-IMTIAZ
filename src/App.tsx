@@ -17,6 +17,9 @@ import ProjectsEditor from './pages/admin/ProjectsEditor';
 import CardsEditor from './pages/admin/CardsEditor';
 import ProjectDetails from './pages/ProjectDetails';
 import { AppProvider } from './context/AppContext';
+import Checkout from './pages/Checkout';
+import OrderSuccess from './pages/OrderSuccess';
+import DemoViewer from './pages/DemoViewer';
 
 // Admin imports
 import AdminLayout from './components/admin/AdminLayout';
@@ -27,11 +30,13 @@ import ContactEditor from './pages/admin/ContactEditor';
 import SocialsEditor from './pages/admin/SocialsEditor';
 import ClientReport from './pages/admin/ClientReport';
 import SkillsEditor from './pages/admin/SkillsEditor';
+import FeaturedProjectsEditor from './pages/admin/FeaturedProjectsEditor';
+import OrdersManager from './pages/admin/OrdersManager';
 
 // Wrapper for the public layout to keep TopNav and BottomNav only on public pages
 function PublicLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="bg-zinc-950 min-h-screen text-white font-sans pb-16">
+    <div className="bg-theme-bg min-h-screen text-theme-text font-sans pb-16">
       <TopNav />
       {children}
       <BottomNav />
@@ -55,6 +60,9 @@ export default function App() {
                 <Route path="/projects" element={<Projects />} />
                 <Route path="/project/:id" element={<ProjectDetails />} />
                 <Route path="/message" element={<Message />} />
+                <Route path="/checkout/:id" element={<Checkout />} />
+                <Route path="/checkout/success/:id" element={<OrderSuccess />} />
+                <Route path="/demo/:id" element={<DemoViewer />} />
               </Routes>
             </PublicLayout>
           } />
@@ -67,10 +75,12 @@ export default function App() {
             <Route path="about" element={<AboutEditor />} />
             <Route path="skills" element={<SkillsEditor />} />
             <Route path="projects" element={<ProjectsEditor />} />
+            <Route path="featured-projects" element={<FeaturedProjectsEditor />} />
             <Route path="cards" element={<CardsEditor />} />
             <Route path="contact" element={<ContactEditor />} />
             <Route path="socials" element={<SocialsEditor />} />
             <Route path="reports" element={<ClientReport />} />
+            <Route path="orders" element={<OrdersManager />} />
           </Route>
         </Routes>
       </Router>
